@@ -1,0 +1,13 @@
+spring:
+  profiles: prod
+
+spring:
+  datasource:
+    url: jdbc:mysql://product-db:3306/productdb
+    username: product_user
+    password: product_pass
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
