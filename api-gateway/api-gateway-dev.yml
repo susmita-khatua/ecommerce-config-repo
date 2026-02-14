@@ -1,4 +1,10 @@
+server:
+  port: 9000
+
 spring:
+  application:
+    name: api-gateway
+
   cloud:
     gateway:
       httpclient:
@@ -12,7 +18,18 @@ spring:
             allowedMethods: "*"
             allowedHeaders: "*"
 
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+      default-filters:
+        - TokenRelay
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+
       routes:
+
+        # ----------------------- AUTH SERVICE -----------------------
         - id: auth-service
           uri: lb://auth-service
           predicates:
@@ -20,6 +37,7 @@ spring:
           filters:
             - StripPrefix=1
 
+        # ----------------------- PRODUCT SERVICE -----------------------
         - id: product-service
           uri: lb://product-service
           predicates:
@@ -28,6 +46,7 @@ spring:
             - StripPrefix=1
             - JwtAuthentication
 
+        # ----------------------- INVENTORY SERVICE -----------------------
         - id: inventory-service
           uri: lb://inventory-service
           predicates:
@@ -36,6 +55,7 @@ spring:
             - StripPrefix=1
             - JwtAuthentication
 
+        # ----------------------- ORDER SERVICE -----------------------
         - id: order-service
           uri: lb://order-service
           predicates:
@@ -44,6 +64,7 @@ spring:
             - StripPrefix=1
             - JwtAuthentication
 
+        # ----------------------- PAYMENT SERVICE -----------------------
         - id: payment-service
           uri: lb://payment-service
           predicates:
@@ -52,14 +73,16 @@ spring:
             - StripPrefix=1
             - JwtAuthentication
 
+        # ----------------------- NOTIFICATION SERVICE -----------------------
         - id: notification-service
           uri: lb://notification-service
           predicates:
-            - Path=/api/notify/**
+            - Path=/api/notifications/**
           filters:
             - StripPrefix=1
             - JwtAuthentication
 
+        # ----------------------- AGGREGATION SERVICE -----------------------
         - id: aggregation-service
           uri: lb://aggregation-service
           predicates:
@@ -68,23 +91,39 @@ spring:
             - StripPrefix=1
             - JwtAuthentication
 
+# ----------------------- EUREKA CLIENT CONFIG -----------------------
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+
+# ----------------------- JWT CONFIG -----------------------
 jwt:
-  secret: ${JWT_SECRET:YgH9kLmN2sP5vX7qT0wA3cD6fG8jK1mR4uE7yB0nV2tQ5oS8xC3bW6zJ9pL1aF4}
+  secret: ${JWT_SECRET:YgH9kLmN2sP5vX7qT0wA3cD6fG8jK1mR4uE7yB0nV2tQ5oS8xC3bW6zJ9pL1aF4}}
   expiration: 3600000
 
+# ----------------------- RESILIENCE4J -----------------------
 resilience4j:
   circuitbreaker:
+    configs:
+      default:
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10s
     instances:
       product-service:
-        failure-rate-threshold: 50
-        wait-duration-in-open-state: 10s
+        base-config: default
       order-service:
-        failure-rate-threshold: 50
-        wait-duration-in-open-state: 10s
+        base-config: default
       payment-service:
-        failure-rate-threshold: 50
-        wait-duration-in-open-state: 10s
+        base-config: default
 
+# ----------------------- LOGGING -----------------------
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG
