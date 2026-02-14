@@ -2,9 +2,9 @@
 # GLOBAL COMMON CONFIGURATION
 # ============================
 
-# spring:
-#   application:
-#     name: shared-config (Removed to avoid overwriting service names)
+spring:
+  application:
+    name: shared-config (Removed to avoid overwriting service names)
 
   jackson:
     serialization:
