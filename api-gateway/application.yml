@@ -38,7 +38,7 @@ spring:
             - Path=/api/products/**
           filters:
             - StripPrefix=1
-            - JwtAuthFilter
+            - JwtAuthenticationFilter
 
         - id: inventory-service
           uri: lb://inventory-service
@@ -46,7 +46,7 @@ spring:
             - Path=/api/inventory/**
           filters:
             - StripPrefix=1
-            - JwtAuthFilter
+            - JwtAuthenticationFilter
 
         - id: order-service
           uri: lb://order-service
@@ -54,7 +54,7 @@ spring:
             - Path=/api/orders/**
           filters:
             - StripPrefix=1
-            - JwtAuthFilter
+            - JwtAuthenticationFilter
 
         - id: payment-service
           uri: lb://payment-service
@@ -62,7 +62,7 @@ spring:
             - Path=/api/payments/**
           filters:
             - StripPrefix=1
-            - JwtAuthFilter
+            - JwtAuthenticationFilter
 
         - id: notification-service
           uri: lb://notification-service
@@ -70,7 +70,7 @@ spring:
             - Path=/api/notifications/**
           filters:
             - StripPrefix=1
-            - JwtAuthFilter
+            - JwtAuthenticationFilter
 
         - id: aggregation-service
           uri: lb://aggregation-service
