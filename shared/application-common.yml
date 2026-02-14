@@ -2,9 +2,9 @@
 # GLOBAL COMMON CONFIGURATION
 # ============================
 
-spring:
-  application:
-    name: shared-config
+# spring:
+#   application:
+#     name: shared-config (Removed to avoid overwriting service names)
 
   jackson:
     serialization:
@@ -107,6 +107,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
   instance:
+    appname: ${spring.application.name}
     prefer-ip-address: true
     lease-renewal-interval-in-seconds: 10
     lease-expiration-duration-in-seconds: 30
