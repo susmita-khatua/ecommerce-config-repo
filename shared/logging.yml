@@ -1,21 +1,18 @@
 logging:
   level:
     root: INFO
-
-    # Spring framework logs
     org.springframework: INFO
     org.springframework.web: INFO
     org.springframework.security: INFO
     org.springframework.cloud: INFO
 
-    # Hibernate + SQL
+    # Hibernate SQL logs
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
-    # Resilience4j
+    # Resilience4J logs
     io.github.resilience4j: INFO
 
-    # Custom Business Logging
     com.ecommerce: DEBUG
 
   pattern:
@@ -25,7 +22,6 @@ logging:
   file:
     name: logs/application.log
 
-# Enable color output
 spring:
   output:
     ansi:
