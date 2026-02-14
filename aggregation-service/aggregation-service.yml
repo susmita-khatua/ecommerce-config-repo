@@ -1,6 +1,6 @@
 spring:
   application:
-    name: order-service
+    name: aggregation-service
 
   profiles:
     active: dev
@@ -14,7 +14,7 @@ spring:
       - "classpath:shared/actuator.yml"
 
 server:
-  port: 9005
+  port: 0
 
 management:
   endpoints:
