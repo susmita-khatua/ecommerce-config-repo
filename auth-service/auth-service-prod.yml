@@ -18,7 +18,12 @@ spring:
         format_sql: false
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION:3600000}
+
 logging:
   level:
     root: WARN
-    com.ecommerce.inventory: INFO
+    com.ecommerce.auth: INFO
+    org.springframework.security: WARN

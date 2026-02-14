@@ -2,4 +2,38 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: 
+          - health
+          - info
+          - metrics
+          - prometheus
+          - env
+          - logfile
+          - refresh
+          - configprops
+          - httptrace
+          - beans
+
+  endpoint:
+    health:
+      show-details: ALWAYS
+      show-components: ALWAYS
+
+  metrics:
+    enable:
+      all: true
+    tags:
+      application: ${spring.application.name}
+
+  server:
+    port: ${MANAGEMENT_PORT:9000}
+
+  tracing:
+    enabled: true
+    sampling:
+      probability: ${TRACING_SAMPLE_PROBABILITY:1.0}
+
+logging:
+  level:
+    org.springframework.boot.actuate: INFO
+    io.micrometer: INFO

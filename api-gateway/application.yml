@@ -1,16 +1,28 @@
 spring:
+  application:
+    name: api-gateway
+
+  profiles:
+    active: dev
+
+  config:
+    import:
+      - "optional:configserver:"
+      - "classpath:shared/application-common.yml"
+      - "classpath:shared/logging.yml"
+      - "classpath:shared/messages.yml"
+      - "classpath:shared/actuator.yml"
+
   cloud:
     gateway:
-      httpclient:
-        connect-timeout: 2000
-        response-timeout: 5s
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
 
-      globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedOrigins: "*"
-            allowedMethods: "*"
-            allowedHeaders: "*"
+      default-filters:
+        - TokenRelay
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
 
       routes:
         - id: auth-service
@@ -55,7 +67,7 @@ spring:
         - id: notification-service
           uri: lb://notification-service
           predicates:
-            - Path=/api/notify/**
+            - Path=/api/notifications/**
           filters:
             - StripPrefix=1
             - JwtAuthFilter
@@ -66,26 +78,18 @@ spring:
             - Path=/api/aggregate/**
           filters:
             - StripPrefix=1
-            - JwtAuthFilter
 
-# JWT configuration for dev environment
+server:
+  port: 9000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
 jwt:
   secret: ${JWT_SECRET:dev-secret-key-change-in-prod}
   expiration: 3600000
-
-# Resilience4j circuit breaker configuration for dev
-resilience4j:
-  circuitbreaker:
-    instances:
-      product-service:
-        failure-rate-threshold: 50
-        wait-duration-in-open-state: 10s
-      order-service:
-        failure-rate-threshold: 50
-        wait-duration-in-open-state: 10s
-      payment-service:
-        failure-rate-threshold: 50
-        wait-duration-in-open-state: 10s
 
 logging:
   level:

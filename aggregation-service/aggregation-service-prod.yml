@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 10
+      connection-timeout: 30000
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+services:
+  product: http://api-gateway:80/api/products
+  inventory: http://api-gateway:80/api/inventory
+  order: http://api-gateway:80/api/orders
+  payment: http://api-gateway:80/api/payments
+  notification: http://api-gateway:80/api/notify
+
+logging:
+  level:
+    root: WARN
+    com.ecommerce.aggregation: INFO

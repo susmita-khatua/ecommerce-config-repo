@@ -1,0 +1,45 @@
+messages:
+  error:
+    internal: "An unexpected error occurred. Please try again later."
+    not-found: "The requested resource was not found."
+    invalid-request: "Your request contains invalid or missing data."
+    unauthorized: "You are not authorized to perform this action."
+    forbidden: "Access to this resource is forbidden."
+    validation: "One or more fields failed validation."
+    service-unavailable: "The service is temporarily unavailable."
+    timeout: "The request timed out. Please try again."
+    conflict: "A conflict occurred while processing the request."
+    already-exists: "Resource already exists."
+
+  success:
+    operation-completed: "Operation completed successfully."
+    created: "Resource created successfully."
+    updated: "Resource updated successfully."
+    deleted: "Resource deleted successfully."
+
+  auth:
+    login-success: "User logged in successfully."
+    logout-success: "Logout successful."
+    token-refreshed: "Token refreshed successfully."
+
+  order:
+    placed: "Order placed successfully."
+    cancelled: "Order cancelled successfully."
+    shipped: "Order shipped successfully."
+
+  payment:
+    processed: "Payment processed successfully."
+    failed: "Payment failed. Please retry."
+
+  inventory:
+    insufficient-stock: "Not enough stock available."
+    stock-updated: "Inventory updated successfully."
+
+  product:
+    added: "Product added successfully."
+    updated: "Product updated successfully."
+    deleted: "Product deleted successfully."
+
+  notification:
+    sent: "Notification delivered successfully."
+    failed: "Failed to send notification."

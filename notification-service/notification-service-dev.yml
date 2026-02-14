@@ -1,0 +1,29 @@
+spring:
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:your_dev_email@gmail.com}
+    password: ${MAIL_PASSWORD:your_dev_email_password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      group-id: notification-group
+      auto-offset-reset: earliest
+
+notification:
+  email:
+    enabled: true
+  sms:
+    enabled: false
+
+logging:
+  level:
+    root: INFO
+    com.ecommerce.notification: DEBUG

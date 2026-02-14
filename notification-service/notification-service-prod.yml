@@ -1,0 +1,29 @@
+spring:
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    consumer:
+      group-id: notification-group
+      auto-offset-reset: latest
+
+notification:
+  email:
+    enabled: true
+  sms:
+    enabled: true
+
+logging:
+  level:
+    root: WARN
+    com.ecommerce.notification: INFO
