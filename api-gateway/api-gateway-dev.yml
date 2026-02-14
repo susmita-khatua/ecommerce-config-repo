@@ -26,7 +26,7 @@ spring:
             - Path=/api/products/**
           filters:
             - StripPrefix=1
-            - JwtAuthFilter
+            - JwtAuthentication
 
         - id: inventory-service
           uri: lb://inventory-service
@@ -34,7 +34,7 @@ spring:
             - Path=/api/inventory/**
           filters:
             - StripPrefix=1
-            - JwtAuthFilter
+            - JwtAuthentication
 
         - id: order-service
           uri: lb://order-service
@@ -42,7 +42,7 @@ spring:
             - Path=/api/orders/**
           filters:
             - StripPrefix=1
-            - JwtAuthFilter
+            - JwtAuthentication
 
         - id: payment-service
           uri: lb://payment-service
@@ -50,7 +50,7 @@ spring:
             - Path=/api/payments/**
           filters:
             - StripPrefix=1
-            - JwtAuthFilter
+            - JwtAuthentication
 
         - id: notification-service
           uri: lb://notification-service
@@ -58,7 +58,7 @@ spring:
             - Path=/api/notify/**
           filters:
             - StripPrefix=1
-            - JwtAuthFilter
+            - JwtAuthentication
 
         - id: aggregation-service
           uri: lb://aggregation-service
@@ -66,14 +66,12 @@ spring:
             - Path=/api/aggregate/**
           filters:
             - StripPrefix=1
-            - JwtAuthFilter
+            - JwtAuthentication
 
-# JWT configuration for dev environment
 jwt:
-  secret: ${JWT_SECRET:dev-secret-key-change-in-prod}
+  secret: ${JWT_SECRET:YgH9kLmN2sP5vX7qT0wA3cD6fG8jK1mR4uE7yB0nV2tQ5oS8xC3bW6zJ9pL1aF4}
   expiration: 3600000
 
-# Resilience4j circuit breaker configuration for dev
 resilience4j:
   circuitbreaker:
     instances:
@@ -91,4 +89,3 @@ logging:
   level:
     org.springframework.cloud.gateway: DEBUG
     reactor.netty.http.client: INFO
-
